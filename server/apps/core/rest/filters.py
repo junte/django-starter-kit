@@ -46,4 +46,3 @@ class BaseModelFilterBackend(filters.BaseFilterBackend):
                 )
             )
         ]
-
