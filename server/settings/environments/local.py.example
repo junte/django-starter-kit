@@ -9,9 +9,9 @@ LANGUAGE_CODE = 'en'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'metro',
-        'USER': 'admin',
-        'PASSWORD': '****',
+        'NAME': '',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost'
     }
 }
