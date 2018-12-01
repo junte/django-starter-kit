@@ -12,6 +12,7 @@ services:
 
 stages:
 - quality
+- test
 - build
 - publish
 - deploy
@@ -28,7 +29,7 @@ flake8:
 
 test:
   image: $DOCKER_TEST_IMAGE
-  stage: quality
+  stage: test
   services:
   - postgres
   script:
