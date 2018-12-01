@@ -12,8 +12,8 @@ services:
 
 stages:
 - quality
-- test
 - build
+- test
 - publish
 - deploy
 
