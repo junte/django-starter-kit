@@ -28,7 +28,7 @@ flake8:
   - flake8 server
 
 test:
-  image: $DOCKER_TEST_IMAGE
+  image: python:3.6-alpine3.6
   stage: test
   services:
   - postgres
@@ -46,8 +46,6 @@ test:
     paths:
     - coverage.log
     - coverage.dat
-  dependencies:
-  - flake8
 
 build:
   stage: build
