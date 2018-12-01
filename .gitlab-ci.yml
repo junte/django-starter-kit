@@ -34,6 +34,7 @@ test:
   - postgres
   script:
   #- cd /var/www
+  - ls -l
   - pip install coverage
   - coverage run manage.py test -v 2 --debug-mode
   - coverage report -m > coverage.log
