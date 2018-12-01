@@ -30,6 +30,10 @@ flake8:
 test:
   image: python:3.6-alpine3.6
   stage: test
+  variables:
+    GIT_DEPTH: 5
+    GIT_STRATEGY: fetch
+    DJANGO_ENV: 'test'
   services:
   - postgres
   script:
@@ -40,8 +44,6 @@ test:
   - coverage report -m > coverage.log
   - cat coverage.log | tail -n 1
   - mv coverage.* $CI_PROJECT_DIR
-  variables:
-    DJANGO_ENV: 'test'
   coverage: '/TOTAL.+ ([0-9]{1,3}%)/'
   artifacts:
     paths:
