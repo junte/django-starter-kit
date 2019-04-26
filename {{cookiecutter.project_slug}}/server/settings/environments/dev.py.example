@@ -1,0 +1,18 @@
+from server import BASE_DIR
+
+DEBUG = True
+ALLOWED_HOSTS = ['*']
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '{{cookiecutter.project_slug}}',
+        'HOST': '...',
+    }
+}
+
+CELERY_TASK_ALWAYS_EAGER = True
+
+STATIC_ROOT = BASE_DIR.joinpath('static')
+
+SECRET_KEY = 'dev'
