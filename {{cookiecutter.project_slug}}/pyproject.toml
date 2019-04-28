@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "{{cookiecutter.project_slug}}"
+version = "0.1.0"
+description = "{{cookiecutter.description}}"
+authors = ["{{cookiecutter.author_name}}"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+"psycopg2-binary" = "*"
+Django = "*"
+uWSGI = "*"
+djangorestframework = "*"
+drf-yasg = "*"
+django-filter = "*"
+social-auth-core = "*"
+social-auth-app-django = "*"
+django-split-settings = "*"
+django-model-utils = "*"
+celery = "4.1.*"
+flower = "*"
+redis = "*"
+django-admin-autocomplete-filter = "*"
+factory-boy = "*"
+django-health-check = "*"
+jnt-django-bitfield = "*"
+jnt-django-admin-tools = "*"
+python-decouple = "^3.1"
+django_extensions = "^2.1"
+django-cors-headers = "^2.5"
+
+[tool.poetry.dev-dependencies]
+flake8 = "*"
+ipython = "*"
+mypy = "*"
+xenon = "0.5.4"
+pytest = "*"
+pytest-cov = "*"
+pytest-django = "*"
+pytest-xdist = "*"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
