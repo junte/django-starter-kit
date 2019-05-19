@@ -5,13 +5,24 @@ ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
+    {%- if cookiecutter.database == "postgresql" %}
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '{{cookiecutter.project_slug}}',
-        'HOST': '...',
+        'NAME': '<>',
+        'USER': '<>',
+        'PASSWORD': '<>',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    {%- endif %}
+    {%- if cookiecutter.database == "sqlite" %}
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite',
+    {%- endif %}
     }
 }
 
+{%- if cookiecutter.use_celery == "y" %}
 CELERY_TASK_ALWAYS_EAGER = True
+{%- endif %}
 
 STATIC_ROOT = BASE_DIR.joinpath('static')
 

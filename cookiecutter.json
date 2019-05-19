@@ -2,12 +2,14 @@
   "project_name": "My Awesome Project",
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
   "description": "",
-  "author_name": "junte",
-  "open_source_license": [
-    "MIT",
-    "BSD",
-    "GPLv3",
-    "Apache Software License 2.0",
-    "Not open source"
-  ]
+  "author_name": "Junte Ltd",
+  "database": [
+    "sqlite",
+    "postgresql"
+  ],
+  "use_docker": "n",
+  "use_drf": "n",
+  "use_celery": "n",
+  "use_gitlab_ci": "n",
+  "use_dummy_app": "n"
 }

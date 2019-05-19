@@ -8,7 +8,9 @@ class AdminMenu(Menu):
         self.children += [
             items.MenuItem('Home', reverse('admin:index')),
             items.AppList(title='Applications'),
+            {%- if cookiecutter.use_celery == "y" %}
             items.MenuItem('Management', children=[
                 items.MenuItem('Job queue', '/admin/flower/'),
             ])
+            {%- endif %}
         ]

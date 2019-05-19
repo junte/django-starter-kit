@@ -6,7 +6,6 @@ from django.utils.html import format_html
 
 from apps.core.admin.base import BaseModelAdmin
 from apps.core.admin.mixins import AdminFormFieldsOverridesMixin
-from .forms import GroupAdminForm
 from ..models import User
 
 admin.site.unregister(Group)
@@ -50,5 +49,4 @@ class UserAdmin(AdminFormFieldsOverridesMixin,
 @admin.register(Group)
 class GroupAdmin(BaseModelAdmin):
     list_display = ('name',)
-    form = GroupAdminForm
     search_fields = ('name',)

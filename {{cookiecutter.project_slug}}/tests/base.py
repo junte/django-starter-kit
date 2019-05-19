@@ -1,12 +1,12 @@
-import datetime
 import os
 import sys
 
-from django.db import transaction
-from rest_framework.test import APITestCase
-
 from apps.users.models import User
 from apps.users.utils.token import create_user_token
+from django.db import transaction
+{%- if cookiecutter.use_drf == "y" %}
+from rest_framework.test import APITestCase
+{%- endif %}
 
 USER_LOGIN = 'test_test'
 USER_PASSWORD = '1234560'
@@ -59,7 +59,7 @@ class BaseTestMixin:
         self.opened_files.append(f)
         return f
 
-
+{%- if cookiecutter.use_drf == "y" %}
 class BaseAPITest(BaseTestMixin, APITestCase):
     def set_credentials(self, user=None, token=None):
         if not user:
@@ -76,10 +76,4 @@ class BaseAPITest(BaseTestMixin, APITestCase):
     def clear_client_headers(self):
         self.client._credentials = {}
 
-    @staticmethod
-    def format_date(d: datetime) -> str:
-        return d.strftime('%Y-%m-%d')
-
-    @staticmethod
-    def parse_gl_date(s: str) -> datetime:
-        return datetime.datetime.strptime(s, '%Y-%m-%d')
+{%- endif %}

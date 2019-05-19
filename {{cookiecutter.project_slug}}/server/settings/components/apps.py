@@ -1,5 +1,4 @@
 INSTALLED_APPS = (
-
     'admin_tools',
     'admin_tools.theming',
     'admin_tools.menu',
@@ -13,18 +12,18 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # django-admin:
-
     'django.contrib.admin',
     'django.contrib.admindocs',
 
     # vendors
     'django_extensions',
     'django_filters',
+    {%- if cookiecutter.use_drf == "y" %}
     'rest_framework',
     'drf_yasg',
     'corsheaders',
+    {%- endif %}
     'admin_auto_filters',
-    'social_django',
     'health_check',
     'health_check.db',
     'health_check.cache',
@@ -32,5 +31,8 @@ INSTALLED_APPS = (
 
     # apps
     'apps.core',
-    'apps.users'
+    'apps.users',
+    {%- if cookiecutter.use_dummy_app == "y" %}
+    'apps.posts'
+    {%- endif %}
 )

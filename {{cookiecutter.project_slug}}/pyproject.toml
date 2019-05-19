@@ -6,37 +6,42 @@ authors = ["{{cookiecutter.author_name}}"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
-"psycopg2-binary" = "*"
-Django = "*"
-uWSGI = "*"
+python-decouple = "^3.1"
+django = "2.*"
+django-admin-autocomplete-filter = "*"
+django-health-check = "*"
+{%- if cookiecutter.use_drf == "y" %}
 djangorestframework = "*"
+django-cors-headers = "*"
 drf-yasg = "*"
-django-filter = "*"
-social-auth-core = "*"
-social-auth-app-django = "*"
+{%- endif %}
+django_extensions = "*"
 django-split-settings = "*"
 django-model-utils = "*"
+django-filter = "*"
+jnt-django-bitfield = "*"
+jnt-django-admin-tools = "*"
+{%- if cookiecutter.use_docker == "y" %}
+uWSGI = "*"
+{%- endif %}
+{%- if cookiecutter.use_celery == "y" %}
 celery = "4.1.*"
 flower = "*"
 redis = "*"
-django-admin-autocomplete-filter = "*"
-factory-boy = "*"
-django-health-check = "*"
-jnt-django-bitfield = "*"
-jnt-django-admin-tools = "*"
-python-decouple = "^3.1"
-django_extensions = "^2.1"
-django-cors-headers = "^2.5"
+{%- endif %}
+{%- if cookiecutter.database == "postgresql" %}
+psycopg2-binary = "*"
+{%- endif %}
 
 [tool.poetry.dev-dependencies]
-flake8 = "*"
-ipython = "*"
-mypy = "*"
-xenon = "0.5.4"
 pytest = "*"
 pytest-cov = "*"
 pytest-django = "*"
 pytest-xdist = "*"
+flake8 = "*"
+ipython = "*"
+mypy = "*"
+factory-boy = "*"
 
 [build-system]
 requires = ["poetry>=0.12"]

@@ -1,3 +1,3 @@
-class AppException(Exception):
+class ServiceException(Exception):
     def __init__(self, message):
         self.message = message
