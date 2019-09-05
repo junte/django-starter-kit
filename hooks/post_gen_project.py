@@ -64,8 +64,8 @@ def remove_drf_files():
 
 def prepare_for_run():
     shutil.copy(
-        os.path.join('server', 'settings', 'environments', 'dev.py.example'),
-        os.path.join('server', 'settings', 'environments', 'dev.py'),
+        os.path.join('server', 'settings', 'environments', 'development.py.example'),
+        os.path.join('server', 'settings', 'environments', 'development.py'),
     )
 
 
