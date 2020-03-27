@@ -1,18 +1,14 @@
+# -*- coding: utf-8 -*-
+
 from functools import reduce
-from typing import Any, Dict
+from typing import Optional
 
 
-def deep_getattr(obj: object, attr: str, default: Any = None) -> Any:
+def deep_getattr(
+    instance: object, attr: str, default: Optional[object] = None,
+) -> Optional[object]:
+    """Deeping get object attribute."""
     try:
-        return reduce(getattr, attr.split('.'), obj)
+        return reduce(getattr, attr.split("."), instance)
     except AttributeError:
         return default
-
-
-class ObjectView:
-    def __init__(self, d: Dict):
-        self.__dict__ = d
-
-
-def dict2obj(d: Dict) -> object:
-    return ObjectView(d)

@@ -1,17 +1,8 @@
-from server import BASE_DIR
-from settings import config
+# -*- coding: utf-8 -*-
 
-ROOT_URLCONF = 'server.urls'
-DEBUG = config('DJANGO_DEBUG', default=False, cast=bool)
+from decouple import config
 
-WSGI_APPLICATION = 'server.wsgi.application'
+ROOT_URLCONF = "server.urls"
+DEBUG = config("DJANGO_DEBUG", default=False, cast=bool)
 
-STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/server/static'
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR.joinpath('media')
+WSGI_APPLICATION = "server.wsgi.application"

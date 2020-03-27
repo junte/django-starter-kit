@@ -1,16 +1,16 @@
+# -*- coding: utf-8 -*-
+
 from admin_tools.menu import Menu, items, reverse
 
 
 class AdminMenu(Menu):
+    """Main admin menu."""
+
     def __init__(self, **kwargs):
+        """Initializing."""
         super().__init__(**kwargs)
 
         self.children += [
-            items.MenuItem('Home', reverse('admin:index')),
-            items.AppList(title='Applications'),
-            {%- if cookiecutter.use_celery == "y" %}
-            items.MenuItem('Management', children=[
-                items.MenuItem('Job queue', '/admin/flower/'),
-            ])
-            {%- endif %}
+            items.MenuItem("Home", reverse("admin:index")),
+            items.AppList(title="Applications"),
         ]

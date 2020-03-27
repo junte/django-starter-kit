@@ -1,55 +1,52 @@
 image: docker:latest
 
 variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TEST_IMAGE: ${CI_REGISTRY_IMAGE}/${CI_COMMIT_REF_SLUG}:${CI_COMMIT_SHA}
-  DOCKER_DEV_IMAGE: ${CI_REGISTRY_IMAGE}:dev
-  DOCKER_PROD_IMAGE: ${CI_REGISTRY_IMAGE}:prod
-  DOCKER_CACHE_IMAGE: $CI_REGISTRY_IMAGE:cache
+  DOCKER_TEST_IMAGE: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
+  DOCKER_CACHE_IMAGE: $CI_REGISTRY_IMAGE:latest
+  DOCKER_IMAGE: $CI_REGISTRY_IMAGE:$CI_PIPELINE_IID
   GIT_STRATEGY: none
 
-services:
-  - docker:dind
-
 stages:
-  - quality
   - build
   - test
   - publish
   - deploy
-
-quality:
-  image: junte/python-quality
-  stage: quality
-  variables:
-    GIT_DEPTH: 5
-    GIT_STRATEGY: fetch
-  script:
-    - make check_quality
 
 build:
   stage: build
   variables:
     GIT_DEPTH: 5
     GIT_STRATEGY: fetch
+  services:
+    - docker:dind
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
     - docker pull $DOCKER_CACHE_IMAGE || true
-    - docker build --cache-from $DOCKER_CACHE_IMAGE -t $DOCKER_TEST_IMAGE -f deploy/Dockerfile .
+    - docker build --cache-from $DOCKER_CACHE_IMAGE -t $DOCKER_TEST_IMAGE -t $DOCKER_CACHE_IMAGE --target test -f deploy/Dockerfile .
+    - cat deploy/.dockerignore.production >> .dockerignore
+    - docker build --cache-from $DOCKER_CACHE_IMAGE -t $DOCKER_IMAGE --target production -f deploy/Dockerfile .
     - docker push $DOCKER_TEST_IMAGE
+    - docker push $DOCKER_IMAGE
     - docker push $DOCKER_CACHE_IMAGE
+
+quality:
+  image: $DOCKER_TEST_IMAGE
+  stage: test
+  script:
+    - cd /app
+    - export PATH="$PATH:$HOME/.poetry/bin"
+    - make check_quality
 
 test:
   image: $DOCKER_TEST_IMAGE
   stage: test
   variables:
-    DJANGO_ENV: 'test'
+    DJANGO_ENV: test
   services:
-    - postgres
+    - postgres:12.1
   script:
-    - cd /var/www
-    - pip install pytest-django pytest-xdist pytest-cov factory-boy
-    - pytest -n auto --dist=loadscope --cov=apps --cov-report=html:coverage_html
+    - cd /app
+    - pytest -n auto --cov-report=html:coverage_html
     - mkdir $CI_PROJECT_DIR/coverage
     - coverage report -m > $CI_PROJECT_DIR/coverage/report.log
     - cat $CI_PROJECT_DIR/coverage/report.log | tail -n 1
@@ -59,38 +56,31 @@ test:
     paths:
       - coverage
 
-publish-dev:
+publish_master:
   stage: publish
   dependencies: []
+  services:
+    - docker:dind
   script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull $DOCKER_TEST_IMAGE
-    - docker tag $DOCKER_TEST_IMAGE $DOCKER_DEV_IMAGE
-    - docker push $DOCKER_DEV_IMAGE
+    - docker pull $DOCKER_IMAGE
+    - docker tag $DOCKER_IMAGE $CI_REGISTRY_IMAGE:dev
+    - docker push $CI_REGISTRY_IMAGE:dev
   only:
     - master
 
-.publish-prod:
-  stage: publish
-  dependencies: []
-  script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
-    - docker pull $DOCKER_TEST_IMAGE
-    - docker tag $DOCKER_TEST_IMAGE $DOCKER_PROD_IMAGE
-    - docker push $DOCKER_PROD_IMAGE
-  only:
-    - prod
-
-deploy-dev:
+deploy_master:
+  image: junte/helm-deploy:1.2-helm2.16.1
   stage: deploy
-  image: junte/ssh-agent
   dependencies: []
   variables:
-    SSH_PRIVATE_KEY: $SSH_DEV_PRIVATE_KEY
+    GIT_DEPTH: 5
+    GIT_STRATEGY: fetch
+    HELM_IMAGE_TAG: $CI_PIPELINE_IID
   script:
-    - ssh deploy@${DEV_HOST} "/opt/deploy/deploy.sh"
+    - helm_deploy
   environment:
-    name: dev
-    url: https://${DEV_HOST}/admin/
+    name: production
+    url: $SITE_ADDRESS
   only:
     - master
