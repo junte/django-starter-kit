@@ -1,29 +1,29 @@
 from server import BASE_DIR
 
 DEBUG = True
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
-    'default': {
+    "default": {
     {%- if cookiecutter.database == "postgresql" %}
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '<>',
-        'USER': '<>',
-        'PASSWORD': '<>',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "<>",
+        "USER": "<>",
+        "PASSWORD": "<>",
+        "HOST": "localhost",
+        "PORT": "5432",
     {%- endif %}
     {%- if cookiecutter.database == "sqlite" %}
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite',
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite",
     {%- endif %}
-    }
+    },
 }
 
 {%- if cookiecutter.use_celery == "y" %}
 CELERY_TASK_ALWAYS_EAGER = True
 {%- endif %}
 
-STATIC_ROOT = BASE_DIR.joinpath('static')
+STATIC_ROOT = BASE_DIR.joinpath("static")
 
-SECRET_KEY = 'dev'
+SECRET_KEY = "dev"

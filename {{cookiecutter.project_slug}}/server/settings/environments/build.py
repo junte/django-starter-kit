@@ -1,7 +1,5 @@
-SECRET_KEY = 'build'
+# -*- coding: utf-8 -*-
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.dummy'
-    }
-}
+SECRET_KEY = "build"
+
+DATABASES = {"default": {"ENGINE": "django.db.backends.dummy"}}

@@ -10,6 +10,5 @@
   "use_docker": "n",
   "use_drf": "n",
   "use_celery": "n",
-  "use_gitlab_ci": "n",
-  "use_dummy_app": "n"
+  "use_gitlab_ci": "n"
 }
