@@ -56,7 +56,7 @@ test:
     paths:
       - coverage
 
-publish_master:
+.publish_master:
   stage: publish
   dependencies: []
   services:
@@ -69,7 +69,7 @@ publish_master:
   only:
     - master
 
-deploy_master:
+.deploy_master:
   image: junte/helm-deploy:1.2-helm2.16.1
   stage: deploy
   dependencies: []
