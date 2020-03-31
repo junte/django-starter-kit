@@ -42,8 +42,8 @@ def superuser(db, django_user_model, django_username_field):
         return django_user_model.objects.create_superuser(
             DEFAULT_USERNAME, DEFAULT_USER_PASSWORD,
         )
-    else:
-        user.is_superuser = True
-        user.is_staff = True
-        user.save()
-        return user
+
+    user.is_superuser = True
+    user.is_staff = True
+    user.save()
+    return user

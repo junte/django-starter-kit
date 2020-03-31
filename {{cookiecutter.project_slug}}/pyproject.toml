@@ -24,7 +24,7 @@ jnt-django-admin-tools = "*"
 uWSGI = "*"
 {%- endif %}
 {%- if cookiecutter.use_celery == "y" %}
-celery = "4.1.*"
+celery = "*"
 flower = "*"
 redis = "*"
 {%- endif %}
