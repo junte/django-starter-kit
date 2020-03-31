@@ -5,3 +5,5 @@
 run/
 *.mo
 .pytest_cache
+.mypy_cache
+pytest.ini
