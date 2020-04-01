@@ -4,6 +4,7 @@
 *.iml
 run/
 *.mo
+development.py
 .pytest_cache
 .mypy_cache
 pytest.ini

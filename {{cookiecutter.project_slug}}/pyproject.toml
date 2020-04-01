@@ -47,6 +47,7 @@ flake8 = "*"
 flake8-pytest = "*"
 flake8-django = "*"
 flake8-pytest-style = "*"
+flake8-coding = "*"
 wemake-python-styleguide = "*"
 black = "^19.10b0"
 
