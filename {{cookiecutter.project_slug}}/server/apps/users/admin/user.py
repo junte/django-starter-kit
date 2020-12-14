@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from admin_tools.decorators import admin_field
 from admin_tools.mixins import AdminAutocompleteFieldsMixin
 from django.contrib import admin
@@ -8,14 +6,12 @@ from django.contrib.auth.forms import AdminPasswordChangeForm
 from django.urls import reverse
 from django.utils.html import format_html
 
-from apps.core.admin.mixins import AdminFormFieldsOverridesMixin
 from apps.users.models import User
 
 
 @admin.register(User)
 class UserAdmin(
     AdminAutocompleteFieldsMixin,
-    AdminFormFieldsOverridesMixin,
     DjangoUserAdmin,
 ):
     """User admin."""

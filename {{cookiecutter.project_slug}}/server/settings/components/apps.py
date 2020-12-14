@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 INSTALLED_APPS = (
     "admin_tools",
     "admin_tools.theming",

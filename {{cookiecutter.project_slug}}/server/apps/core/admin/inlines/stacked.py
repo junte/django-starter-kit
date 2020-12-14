@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-
 from django.contrib import admin
 
-from apps.core.admin.mixins import AdminFormFieldsOverridesMixin
 
 
-class BaseStackedInline(AdminFormFieldsOverridesMixin, admin.StackedInline):
+class BaseStackedInline(admin.StackedInline):
     """Base stacked inline."""
 
     extra = 0

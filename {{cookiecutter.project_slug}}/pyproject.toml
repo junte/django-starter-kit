@@ -6,22 +6,23 @@ authors = ["{{cookiecutter.author_name}}"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-python-decouple = "*"
-django = "3.*"
-django-admin-autocomplete-filter = "*"
+python-decouple = "^3.1"
+django = "2.*"
 django-health-check = "*"
 {%- if cookiecutter.use_drf == "y" %}
 djangorestframework = "*"
 django-cors-headers = "*"
+drf-yasg = "*"
 {%- endif %}
 django_extensions = "*"
 django-split-settings = "*"
 django-model-utils = "*"
 django-filter = "*"
-jnt-django-bitfield = "*"
 jnt-django-admin-tools = "*"
+jnt-django-toolbox = {version = "*", extras = ["jaeger"]}
 {%- if cookiecutter.use_docker == "y" %}
-uWSGI = "*"
+gunicorn = "*"
+uvicorn = "*"
 {%- endif %}
 {%- if cookiecutter.use_celery == "y" %}
 celery = "*"
@@ -33,38 +34,26 @@ psycopg2-binary = "*"
 {%- endif %}
 
 [tool.poetry.dev-dependencies]
-mypy = "*"
-polint = "*"
-dennis = "*"
-xenon = "*"
-safety = "*"
-pytest = "*"
+pytest = "5.*" # problem with integrity
 pytest-cov = "*"
 pytest-django = "*"
 pytest-xdist = "*"
 factory-boy = "*"
+freezegun = "*"
 flake8 = "*"
-flake8-pytest = "*"
 flake8-django = "*"
 flake8-pytest-style = "*"
-flake8-coding = "*"
+flake8-pytest = "*"
+flake8-class-attributes-order = "*"
+mypy = "*"
+httpretty = "*"
 wemake-python-styleguide = "*"
-black = "^19.10b0"
+polint = "*"
+dennis = "*"
+safety = "*"
+xenon = "*"
+black = "^20.8b1"
 
-[tool.black]
-line-length = 79
-target-version = ['py38']
-include = '\.pyi?$'
-exclude = '''
-(
-  /(
-    | \.git          # root of the project
-    | \.mypy_cache
-    | \.pytest_cache
-    | .*\/migrations
-  )/
-)
-'''
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"

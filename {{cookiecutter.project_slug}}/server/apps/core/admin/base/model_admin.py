@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from admin_tools.mixins import AdminAutocompleteFieldsMixin
 from django.contrib import admin
 

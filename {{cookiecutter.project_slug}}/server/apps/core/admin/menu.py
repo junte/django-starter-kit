@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from admin_tools.menu import Menu, items, reverse
 
 

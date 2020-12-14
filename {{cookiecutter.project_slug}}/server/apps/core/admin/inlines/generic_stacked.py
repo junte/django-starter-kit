@@ -1,13 +1,7 @@
-# -*- coding: utf-8 -*-
-
 from django.contrib.contenttypes.admin import GenericStackedInline
 
-from apps.core.admin.mixins import AdminFormFieldsOverridesMixin
 
-
-class BaseGenericStackedInline(
-    AdminFormFieldsOverridesMixin, GenericStackedInline,
-):
+class BaseGenericStackedInline(GenericStackedInline):
     """Base generic stacked inline."""
 
     extra = 0

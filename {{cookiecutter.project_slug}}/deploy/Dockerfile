@@ -1,32 +1,38 @@
 FROM python:3.8-slim as base
 
-ENV PYTHONFAULTHANDLER=1 \
-  PYTHONUNBUFFERED=1 \
-  PYTHONHASHSEED=random \
-  PIP_NO_CACHE_DIR=off \
-  PIP_DEFAULT_TIMEOUT=100 \
-  PIPENV_HIDE_EMOJIS=true \
-  PIPENV_COLORBLIND=true \
-  PIPENV_NOSPIN=true \
-  C_FORCE_ROOT=true \
-  POETRY_VERSION=1.0.0
+ENV C_FORCE_ROOT=true \
+    # python
+    PYTHONFAULTHANDLER=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONHASHSEED=random \
+    # pip
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    # prometheus
+    prometheus_multiproc_dir=/var/run/prometheus \
+    # poetry:
+    POETRY_VERSION=1.1.4 \
+    POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_CACHE_DIR='/var/cache/pypoetry' \
+    PATH="$PATH:/root/.poetry/bin"
 
 WORKDIR /app
 
 COPY pyproject.toml poetry.lock ./
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt update \
-    && apt install -y gcc \
+    && apt-get install -y gcc \
                       binutils \
                       gettext \
                       nginx \
                       make \
     && curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/${POETRY_VERSION}/get-poetry.py | python \
-    && export PATH="$PATH:$HOME/.poetry/bin" \
-    && poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi \
-    && apt remove --purge -y gcc binutils \
-    && apt autoremove -y
+    && poetry install --no-dev --no-ansi \
+    && apt-get remove --purge -y gcc binutils \
+    && apt-get autoremove -y
 
 # ---
 
@@ -41,13 +47,12 @@ RUN export DJANGO_ENV=build \
 
 ENV DJANGO_ENV=production
 
-CMD ["/bin/bash", "deploy/server/run.sh"]
+CMD ["/bin/bash", "deploy/server/backend.sh"]
 
 # ---
 
 FROM base as test
 
-RUN export PATH="$PATH:$HOME/.poetry/bin" \
-    && poetry install --no-interaction --no-ansi
+RUN poetry install --no-ansi
 
 COPY . .
