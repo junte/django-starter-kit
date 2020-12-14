@@ -7,7 +7,7 @@ authors = ["{{cookiecutter.author_name}}"]
 [tool.poetry.dependencies]
 python = "^3.8"
 python-decouple = "^3.1"
-django = "2.*"
+django = "3.*"
 django-health-check = "*"
 {%- if cookiecutter.use_drf == "y" %}
 djangorestframework = "*"
