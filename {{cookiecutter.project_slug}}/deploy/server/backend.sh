@@ -7,7 +7,7 @@ set -o errexit
 nginx
 
 WORKER_CLASS="uvicorn.workers.UvicornH11Worker"
-GUNICORN_CONF="deploy/django/gunicorn_conf.py"
+GUNICORN_CONF="deploy/server/gunicorn_conf.py"
 APP_MODULE="server.asgi"
 
 # Start Gunicorn
