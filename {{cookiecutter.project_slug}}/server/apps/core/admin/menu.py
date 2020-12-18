@@ -1,4 +1,4 @@
-from admin_tools.menu import Menu, items, reverse
+from jnt_admin_tools.menu import Menu, items, reverse
 
 
 class AdminMenu(Menu):

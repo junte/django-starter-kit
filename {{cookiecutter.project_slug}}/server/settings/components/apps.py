@@ -1,8 +1,8 @@
 INSTALLED_APPS = (
-    "admin_tools",
-    "admin_tools.theming",
-    "admin_tools.menu",
-    "admin_tools.dashboard",
+    "jnt_admin_tools",
+    "jnt_admin_tools.theming",
+    "jnt_admin_tools.menu",
+    "jnt_admin_tools.dashboard",
     # Default django apps:
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -15,11 +15,10 @@ INSTALLED_APPS = (
     # vendors
     "django_extensions",
     "django_filters",
-    {%- if cookiecutter.use_drf == "y" %}
     "rest_framework",
+    {%- if cookiecutter.use_drf == "y" %}
     "corsheaders",
     {%- endif %}
-    "admin_auto_filters",
     "health_check",
     "health_check.db",
     "health_check.cache",

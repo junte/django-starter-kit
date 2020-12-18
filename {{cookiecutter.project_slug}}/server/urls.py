@@ -9,7 +9,7 @@ app_title = "{{cookiecutter.project_name}}"
 
 urlpatterns = [
     path("ht/", include("health_check.urls")),
-    path("admin_tools/", include("admin_tools.urls")),
+    path("admin_tools/", include("jnt_admin_tools.urls")),
     path("admin/", admin.site.urls),
 ]
 
