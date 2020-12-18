@@ -28,9 +28,11 @@ SUCCESS = '\x1b[1;32m [SUCCESS]: '
 
 
 def remove_docker_files():
-    shutil.rmtree('docker')
-
-    file_names = ['.dockerignore']
+    file_names = [
+        '.dockerignore',
+        os.path.join('deploy', '.dockerignore.production'),
+        os.path.join('deploy', 'Dockerfile'),
+    ]
     for file_name in file_names:
         os.remove(file_name)
 
@@ -49,19 +51,6 @@ def remove_celery_files():
         os.remove(file_name)
 
 
-def remove_drf_files():
-    shutil.rmtree(os.path.join('server', 'apps', 'users', 'rest'), )
-    shutil.rmtree(os.path.join('server', 'apps', 'core', 'rest'), )
-    file_names = [
-        os.path.join('tests', 'test_users', 'test_api_login.py'),
-        os.path.join('tests', 'test_users', 'test_api_logout.py'),
-        os.path.join('tests', 'test_users', 'test_api_me_user.py'),
-        os.path.join('tests', 'test_users', 'test_api_users.py'),
-    ]
-    for file_name in file_names:
-        os.remove(file_name)
-
-
 def prepare_for_run():
     shutil.copy(
         os.path.join('server', 'settings', 'environments', 'development.py.example'),
@@ -72,9 +61,6 @@ def prepare_for_run():
 def main():
     if '{{ cookiecutter.use_docker }}'.lower() == 'n':
         remove_docker_files()
-
-    if '{{ cookiecutter.use_drf }}'.lower() == 'n':
-        remove_drf_files()
 
     if '{{ cookiecutter.use_gitlab_ci }}'.lower() == 'n':
         remove_gitlab_ci_files()

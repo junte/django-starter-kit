@@ -9,8 +9,8 @@ python = "^3.8"
 python-decouple = "^3.1"
 django = "3.*"
 django-health-check = "*"
-{%- if cookiecutter.use_drf == "y" %}
 djangorestframework = "*"
+{%- if cookiecutter.use_drf == "y" %}
 django-cors-headers = "*"
 drf-yasg = "*"
 {%- endif %}
