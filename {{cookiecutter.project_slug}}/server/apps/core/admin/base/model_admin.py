@@ -1,14 +1,7 @@
-from jnt_admin_tools.mixins import AdminAutocompleteFieldsMixin
-from django.contrib import admin
+from jnt_admin_tools.admin.base import BaseModelAdmin as LibBaseModelAdmin
 
 
-class BaseModelAdmin(
-    AdminAutocompleteFieldsMixin,
-    admin.ModelAdmin,
-):
+class BaseModelAdmin(LibBaseModelAdmin):
     """Base model admin."""
 
     list_per_page = 20
-
-    class Media:
-        """Media."""

@@ -1,5 +1,5 @@
 from jnt_django_toolbox.admin.decorators import admin_field
-from jnt_admin_tools.mixins import AdminAutocompleteFieldsMixin
+from jnt_admin_tools.mixins import AutocompleteFieldsAdminMixin
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.auth.forms import AdminPasswordChangeForm
@@ -11,7 +11,7 @@ from apps.users.models import User
 
 @admin.register(User)
 class UserAdmin(
-    AdminAutocompleteFieldsMixin,
+    AutocompleteFieldsAdminMixin,
     DjangoUserAdmin,
 ):
     """User admin."""
