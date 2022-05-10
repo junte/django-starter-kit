@@ -3,5 +3,5 @@
 ## Usage
 
 ```
-cookiecutter git@gitlab.com:junte/packages/public/django/django-starter-kit.git
+cookiecutter git@github.com:Junte/django-starter-kit.git
 ```
